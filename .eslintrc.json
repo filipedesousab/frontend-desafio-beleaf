@@ -1,0 +1,11 @@
+{
+    "extends": "airbnb",
+    "rules": {
+      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+      "no-underscore-dangle": [1, { "allowAfterThis": true }],
+      "class-methods-use-this": [0]
+    },
+    "settings": {
+      "import/resolver": "webpack"
+    }
+}

@@ -1,0 +1,19 @@
+// Início das regras para os componentes do button
+
+@import 'btn-app';
+
+// Margem em botão para posicionar corretamente ao lado de campos com label
+.btn-nexttofield {
+  margin-top: 26px;
+}
+
+// Borda do menu do [ButtonDropdown, UIE006]. Deixando um pouco mais escura.
+.dropdown-menu {
+  border-color: #ccc;
+}
+
+// Remover a margin inferior e esquerda do [ButtonApp, UIE008]
+.btn-app {
+  margin: 0px;
+}
+// Fim das regras para os componentes do button

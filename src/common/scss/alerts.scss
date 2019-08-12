@@ -1,0 +1,19 @@
+// Início das regras para o [AlertsPopup, UIL007]
+
+// Manter no canto superior direito
+.alertspopup {
+  top: 72px;
+  left: auto;
+  right: 24px;
+  z-index: 1400;
+  position: fixed;
+  width: 400px;
+}
+
+// Tamanho máximo de um táblet
+@media (max-width: 768px) {
+  .alertspopup {
+    width: calc(100vw - 48px);
+  }
+}
+// Fim das regras para o [AlertsPopup, UIL007]

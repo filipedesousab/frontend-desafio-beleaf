@@ -1,0 +1,20 @@
+// Início das regras para o [Photograph, UIE035]
+
+.photograph {
+  background-color: #bbb;
+  padding: 5px;
+  border-radius: 5px;
+
+  .image {
+    border-radius: 3px;
+
+    &.photo {
+      margin-bottom: 5px;
+    }
+  }
+
+  button {
+    text-align: center;
+  }
+}
+// Fim das regras para o [Photograph, UIE035]

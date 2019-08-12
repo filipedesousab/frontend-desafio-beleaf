@@ -1,0 +1,14 @@
+// Início das regras para o [Footer, UIL005]
+
+footer.main-footer {
+  font {
+    vertical-align: inherit;
+  }
+}
+// Tamanho máximo de um táblet
+@media (max-width: 991px) {
+  footer.main-footer div{
+    text-align: center;
+  }
+}
+// Fim das regras para o [Footer, UIL005]

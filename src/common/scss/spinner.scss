@@ -1,0 +1,32 @@
+// Início das regras para o [FadeSpinner, UIE034]
+
+.fade-spinner {
+  z-index: 9998;
+
+  .fade {
+    opacity: .6;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 9998;
+    background-color: #000;
+    overflow: hidden;
+    transition: opacity .15s linear;
+  }
+
+  .spinner {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 9999;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+    margin: auto;
+  }
+}
+// Fim das regras para o [FadeSpinner, UIE034]

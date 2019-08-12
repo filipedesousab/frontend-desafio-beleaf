@@ -1,0 +1,66 @@
+// COLORS
+// --------------------------------------------------------
+// Primary
+$light-blue:         #3c8dbc;
+// Danger
+$red:                #dd4b39;
+// Success
+$green:              #00a65a;
+// Info
+$aqua:               #00c0ef;
+// Warning
+$yellow:             #f39c12;
+$blue:               #0073b7;
+$navy:               #001F3F;
+$teal:               #39CCCC;
+$olive:              #3D9970;
+$lime:               #01FF70;
+$orange:             #FF851B;
+$fuchsia:            #F012BE;
+$purple:             #605ca8;
+$maroon:             #D81B60;
+$black:              #111;
+$gray-lte:           #d2d6de;
+
+$btn-default-color:  #333;
+$btn-default-bg:     #fff;
+$btn-default-border: #ccc;
+
+$btn-blue-color:     #fff;
+$btn-blue-bg:        $light-blue;
+$btn-blue-border:    darken($btn-blue-bg, 5%);
+$btn-primary-color:  $btn-blue-color;
+$btn-primary-bg:     $btn-blue-bg;
+$btn-primary-border: $btn-blue-border;
+
+$btn-green-color:    #fff;
+$btn-green-bg:       $green;
+$btn-green-border:   darken($btn-green-bg, 5%);
+$btn-success-color:  $btn-green-color;
+$btn-success-bg:     $btn-green-bg;
+$btn-success-border: $btn-green-border;
+
+$btn-aqua-color:     #fff;
+$btn-aqua-bg:        $aqua;
+$btn-aqua-border:    darken($btn-aqua-bg, 5%);
+$btn-info-color:     $btn-aqua-color;
+$btn-info-bg:        $btn-aqua-bg;
+$btn-info-border:    $btn-aqua-border;
+
+$btn-yellow-color:   #fff;
+$btn-yellow-bg:      $yellow;
+$btn-yellow-border:  darken($btn-yellow-bg, 5%);
+$btn-warning-color:  $btn-yellow-color;
+$btn-warning-bg:     $btn-yellow-bg;
+$btn-warning-border: $btn-yellow-border;
+
+$btn-red-color:      #fff;
+$btn-red-bg:         $red;
+$btn-red-border:     darken($btn-red-bg, 5%);
+$btn-danger-color:   $btn-red-color;
+$btn-danger-bg:      $btn-red-bg;
+$btn-danger-border:  $btn-red-border;
+
+$btn-purple-color:   #fff;
+$btn-purple-bg:      $purple;
+$btn-purple-border:  darken($btn-purple-bg, 5%);

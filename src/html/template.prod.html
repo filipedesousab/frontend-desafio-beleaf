@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <% Object.keys(compilation.assets).every((key) => { %>
+      <% if (key.match(/favicon/)){ %>
+        <link rel="icon" href="<%= key %>" />
+      <% return false } %>
+    <% return true }) %>
+    <% if (compilation.assets['crp.css']) { %>
+    <style type="text/css">
+      <%= compilation.assets['crp.css'].source() %>
+    </style>
+    <% } %>
+  </head>
+  <body class="skin-yellow fixed sidebar-mini">
+    <div id="app"></div>
+    <% htmlWebpackPlugin.files.css.forEach((cssFile) => { %>
+      <% if (cssFile !== 'crp.css') { %>
+        <link rel="stylesheet" type="text/css" href="<%= cssFile %>">
+      <% } %>
+    <% }) %>
+    <% htmlWebpackPlugin.files.js.forEach((jsFile) => { %>
+      <script type="text/javascript" async src="<%= jsFile %>"></script>
+    <% }) %>
+  </body>
+</html>

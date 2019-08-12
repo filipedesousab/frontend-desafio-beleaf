@@ -1,0 +1,41 @@
+// Início das regras para os componentes do form
+
+// Ajustar as margens dos componentes [Checkbox, UIE014] e [Radio, UIE015] em um addon no form
+.input-group-addon .checkbox, .input-group-addon .radio {
+  margin: 0px 0px -8px;
+}
+
+// Corrigir border-radius do lado direito dos campos quando estão small e large
+// A borda esquerda mantia um radiu de 3px enquanto a direita um radio de 0px
+.form-group-sm .form-control, .form-group-lg .form-control {
+border-radius: 0px;
+}
+
+// Corrigir bordas do input com state quando houver button
+// O button sobrepõe a borda com cor do campo
+.input-group-btn:first-child>.btn-group {
+  margin-right: 0px;
+}
+.input-group-btn:last-child>.btn, .input-group-btn:last-child>.btn-group {
+  margin-left: 0px;
+}
+
+// Corrigir bordas dos addons quando o campo TextArea é alterado de tamanho
+.input-group-addon:first-child {
+border-right: 1px solid;
+}
+.input-group-addon:last-child {
+border-left: 1px solid;
+}
+
+// Padding dentro do input para corrigir o 42.5px aplicado pelo has-feedback
+.has-feedback .form-control {
+padding-right: 12px;
+}
+
+// remover o ícone do form-control-feedback,
+// o mesmo está atrapalhando a visualização correta do componente.
+select + .form-control-feedback {
+display: none;
+}
+// Fim das regras para os componentes do form
