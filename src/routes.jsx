@@ -7,13 +7,13 @@ import {
 } from 'react-router-dom';
 import createHashHistory from 'history/createHashHistory';
 
-import LunchBoxes from './LunchBoxes';
+import LunchBoxesList from './LunchBoxesList';
 
 /** @type {function} Constroe as rodas das páginas da aplicação */
 const Routes = () => (
   <Router history={createHashHistory()}>
     <Switch>
-      <Route exact path="/" component={LunchBoxes} />
+      <Route exact path="/" component={LunchBoxesList} />
       <Redirect from="*" to="/" />
     </Switch>
   </Router>
