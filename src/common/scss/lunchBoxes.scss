@@ -1,5 +1,12 @@
 // Início das regras para o componente LunchBoxes
 
+a:hover, a:active, a:focus {
+  .lunchbox .previous-price {
+    outline: none;
+    color: lighten(#7f0000, 20);
+  }
+}
+
 .lunchbox {
   text-align: center;
   background-color: #fff;
@@ -15,12 +22,14 @@
 
   .description {
     font-size: 17px;
+    text-transform: uppercase;
   }
 
   .previous-price {
     color: #7f0000;
     text-decoration: line-through;
     display: inline-block;
+    margin-left: 10px;
     margin-right: 10px;
   }
 
@@ -28,6 +37,7 @@
     font-size: 20px;
     display: inline-block;
     margin-left: 10px;
+    margin-right: 10px;
   }
 }
 

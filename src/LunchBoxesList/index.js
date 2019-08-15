@@ -1,1 +1,1 @@
-export { default } from './LunchBoxesListComponent';
+export { default } from './LunchBoxesListContainer';

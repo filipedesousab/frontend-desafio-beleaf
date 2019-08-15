@@ -2,7 +2,7 @@ const INITIAL_STATE = {
   list: [
     {
       id: '1',
-      label: 'ESCALOPES DO FUTURO',
+      name: 'ESCALOPES DO FUTURO',
       price: '34.90',
       discount: '10',
     },

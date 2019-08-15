@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
+import imageNoPhoto from 'images/no-photo.jpg';
 import { Content, Grid } from '../common/ui-layout';
 import { Label } from '../common/ui-elements';
 
@@ -10,16 +12,46 @@ const LunchBoxesComponent = ({ lunchBoxes }) => (
     breadcrumb={[{ label: 'Marmitas', href: '#' }]}
   >
     <Grid.Row>
-      <Grid.Col sm={3}>
-        <div className="lunchbox">
-          <img src="https://veganja.vteximg.com.br/arquivos/ids/155806-1000-1000/Escalope.jpg?v=636967348146370000" alt="" />
-          <p className="description">ESCALOPES DO FUTURO</p>
-          <div className="previous-price">R$ 34,90</div>
-          <div className="price">R$ 27,90</div>
-        </div>
-      </Grid.Col>
+      {lunchBoxes.map((item) => {
+        const price = Number(item.price);
+        const discount = Number(item.discount);
+
+        const priceWithoutDiscount = () => (
+          <div className="price">
+            {`R$ ${price.toFixed(2).replace('.', ',')}`}
+          </div>
+        );
+
+        const priceWithDiscount = () => (
+          <>
+            <div className="previous-price">
+              {`R$ ${price.toFixed(2).replace('.', ',')}`}
+            </div>
+            <div className="price">
+              {`R$ ${(price - (price * discount / 100)).toFixed(2).replace('.', ',')}`}
+            </div>
+          </>
+        );
+
+        return (
+          <Grid.Col sm={3} key={item.id}>
+            <a href={`#/lunchBox/:${item.id}`}>
+              <div className="lunchbox">
+                <img src={imageNoPhoto} alt="" />
+                <p className="description">{item.name}</p>
+                {discount > 0 ? priceWithDiscount() : priceWithoutDiscount()}
+              </div>
+            </a>
+          </Grid.Col>
+        );
+      })}
     </Grid.Row>
   </Content>
 );
+
+/** @type {Object} Tipos das props, ajuda no controle das entradas de dados */
+LunchBoxesComponent.propTypes = {
+  lunchBoxes: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 export default LunchBoxesComponent;
