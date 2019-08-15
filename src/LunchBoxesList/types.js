@@ -1,0 +1,1 @@
+export const GET_LUNCH_BOXES = 'GET_LUNCH_BOXES';
