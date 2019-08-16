@@ -19,6 +19,20 @@
   .price {
     font-size: 20px;
   }
+
+  .edit {
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  .btn-pencil {
+    padding: 0px;
+    border-radius: 11px;
+    width: 22px;
+    height: 22px;
+    margin-top: -3px;
+    margin-left: 5px;
+  }
 }
 
 // Fim das regras para o componente LunchBoxes
