@@ -1,0 +1,24 @@
+// Início das regras para o componente LunchBoxes
+
+.lunchbox {
+  img {
+    width: 100%;
+    border-radius: 2px;
+  }
+
+  .name {
+    font-size: 17px;
+    text-transform: uppercase;
+  }
+
+  .previous-price {
+    color: #7f0000;
+    text-decoration: line-through;
+  }
+
+  .price {
+    font-size: 20px;
+  }
+}
+
+// Fim das regras para o componente LunchBoxes
