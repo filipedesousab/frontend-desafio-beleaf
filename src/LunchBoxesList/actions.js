@@ -5,7 +5,7 @@ import { addAlertPopup } from 'common/ui-layout/Alerts';
 import { GET_LUNCH_BOXES } from './types';
 
 // eslint-disable-next-line import/prefer-default-export
-export const getLunchBoxes = (callback = () => {}) => (dispatch, getState) => {
+export const getLunchBoxes = (callback = () => {}) => (dispatch) => {
   const { boundAddAlertPopup } = bindActionCreators( // Liga a Action Creator ao dispach
     { boundAddAlertPopup: addAlertPopup }, // Action Creator do AlertPopup
     dispatch, // Função para dispachar actions

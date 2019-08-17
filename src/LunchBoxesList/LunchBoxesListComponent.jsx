@@ -5,7 +5,6 @@ import imageNoPhoto from 'images/no-photo.jpg';
 import { Content, Grid } from '../common/ui-layout';
 import { Label, FadeSpinner } from '../common/ui-elements';
 
-/** @type {function} Página inicial da aplicação */
 class LunchBoxesComponent extends Component {
   constructor(props) {
     super(props);
@@ -47,10 +46,10 @@ class LunchBoxesComponent extends Component {
 
           return (
             <Grid.Col sm={3} key={item.id}>
-              <a href={`#/lunchBox/:${item.id}`}>
+              <a href={`#/lunchBox/${item.id}`}>
                 <div className="lunchbox">
                   <img src={imageNoPhoto} alt="" />
-                  <p className="description">{item.name}</p>
+                  <p className="name">{item.name}</p>
                   {discount > 0 ? priceWithDiscount() : priceWithoutDiscount()}
                 </div>
               </a>
@@ -68,6 +67,7 @@ class LunchBoxesComponent extends Component {
       <Content
         title={<Label>Marmitas</Label>}
         breadcrumb={[{ label: 'Marmitas', href: '#' }]}
+        className="lunchboxes"
       >
         {loading ? <FadeSpinner /> : this.renderList()}
       </Content>
