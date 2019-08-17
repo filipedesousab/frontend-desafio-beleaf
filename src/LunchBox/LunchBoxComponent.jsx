@@ -29,6 +29,7 @@ class LunchBoxComponent extends Component {
       editIngredients: false,
       editQuantity: false,
       loading: false,
+      loadingImage: false,
     };
   }
 
@@ -58,6 +59,7 @@ class LunchBoxComponent extends Component {
       editIngredients,
       editQuantity,
       loading,
+      loadingImage,
     } = this.state;
 
     const price = Number(lunchBox.price);
@@ -73,10 +75,14 @@ class LunchBoxComponent extends Component {
             <Grid.Row>
               <Grid.Col md={3}>
                 <Photograph
-
+                  noWebcam
                   defaultImage={lunchBox.image || imageNoPhoto}
-                  onCapture={img => changeImage({ id, img })}
+                  onCapture={(img) => {
+                    this.setState({ loadingImage: true });
+                    changeImage({ id, img }, () => this.setState({ loadingImage: false }));
+                  }}
                 />
+                {loadingImage && <FadeSpinner />}
               </Grid.Col>
               <Grid.Col md={8}>
                 <div className="lunchbox">

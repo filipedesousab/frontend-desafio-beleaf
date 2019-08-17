@@ -1,6 +1,7 @@
 import { bindActionCreators } from 'redux';
 
 import { addAlertPopup } from 'common/ui-layout/Alerts';
+import { convertURLBlobToBase64 } from 'common/utils';
 
 import {
   ADD_LUNCH_BOX,
@@ -162,7 +163,10 @@ export const changeQuantity = ({ id, quantity }, callback = () => {}) => (dispat
     });
 };
 
-export const changeDescription = ({ id, description }, callback = () => {}) => (dispatch, getState) => {
+export const changeDescription = (
+  { id, description },
+  callback = () => {},
+) => (dispatch, getState) => {
   const { boundAddAlertPopup } = bindActionCreators( // Liga a Action Creator ao dispach
     { boundAddAlertPopup: addAlertPopup }, // Action Creator do AlertPopup
     dispatch, // Função para dispachar actions
@@ -194,7 +198,10 @@ export const changeDescription = ({ id, description }, callback = () => {}) => (
     });
 };
 
-export const changeIngredients = ({ id, ingredients }, callback = () => {}) => (dispatch, getState) => {
+export const changeIngredients = (
+  { id, ingredients },
+  callback = () => {},
+) => (dispatch, getState) => {
   const { boundAddAlertPopup } = bindActionCreators( // Liga a Action Creator ao dispach
     { boundAddAlertPopup: addAlertPopup }, // Action Creator do AlertPopup
     dispatch, // Função para dispachar actions
@@ -232,35 +239,35 @@ export const changeImage = ({ id, img }, callback = () => {}) => (dispatch, getS
     dispatch, // Função para dispachar actions
   );
 
-  let image = img;
-  // const reader = new FileReader();
-  // reader.readAsDataURL(img);
-  // reader.onloadend = () => {
-  //   image = reader.result;
-  // };
-console.log(image)
-  // Simula uma requisição AJAX
-  new Promise((resolve, reject) => setTimeout(() => resolve(), 2000))
-    .then(() => { // Caso tenha sucesso
-      callback();
+  if (img) {
+    convertURLBlobToBase64(img)
+      .then((image) => {
+        // Simula uma requisição AJAX
+        new Promise((resolve, reject) => setTimeout(() => resolve(), 2000))
+          .then(() => { // Caso tenha sucesso
+            callback();
 
-      dispatch({ // Dispacha a action
-        type: CHANGE_LUNCH_BOX_IMAGE,
-        payload: { id, image },
-      });
+            dispatch({ // Dispacha a action
+              type: CHANGE_LUNCH_BOX_IMAGE,
+              payload: { id, image },
+            });
 
-      dispatch({ // Dispacha a action
-        type: SELECT_LUNCH_BOX,
-        payload: { ...getState().lunchBox.list[id], image },
-      });
-    })
-    .catch(() => { // Caso tenha erro
-      callback();
+            dispatch({ // Dispacha a action
+              type: SELECT_LUNCH_BOX,
+              payload: { ...getState().lunchBox.list[id], image },
+            });
+          })
+          .catch(() => { // Caso tenha erro
+            callback();
 
-      boundAddAlertPopup({ // Dispara um AlertPopup de erro
-        title: 'Falha na operação',
-        body: 'Houve alguma falha ao tentar alterar a imagem da marmita. Tente novamente.',
-        color: 'danger',
+            boundAddAlertPopup({ // Dispara um AlertPopup de erro
+              title: 'Falha na operação',
+              body: 'Houve alguma falha ao tentar alterar a imagem da marmita. Tente novamente.',
+              color: 'danger',
+            });
+          });
       });
-    });
+  } else {
+    callback();
+  }
 };
