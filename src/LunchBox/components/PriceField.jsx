@@ -4,15 +4,24 @@ import PropTypes from 'prop-types';
 import {
   Button,
   ButtonGroup,
+  FadeSpinner,
   Icon,
   Input,
   Label,
 } from 'common/ui-elements';
 import { Grid } from 'common/ui-layout';
 
-const PriceFieldComponent = ({ price, discount, onClose }) => {
+const PriceFieldComponent = (props) => {
+  const {
+    changePrice,
+    id,
+    price,
+    discount,
+    onClose,
+  } = props;
   const [fieldPrice, setFieldPrice] = useState(price);
   const [fieldDiscount, setFieldDiscount] = useState(discount);
+  const [loading, setLoading] = useState(false);
 
   return (
     <Grid.Row>
@@ -35,11 +44,25 @@ const PriceFieldComponent = ({ price, discount, onClose }) => {
           <Button color="danger" onClick={onClose}>
             <Icon name="fa fa-times" />
           </Button>
-          <Button color="success" onClick={onClose}>
+          <Button
+            color="success"
+            onClick={() => {
+              setLoading(true);
+              changePrice(
+                {
+                  id,
+                  price: fieldPrice.replace(',', '.'),
+                  discount: fieldDiscount.replace(',', '.'),
+                },
+                onClose,
+              );
+            }}
+          >
             <Icon name="fa fa-check" />
           </Button>
         </ButtonGroup>
       </Grid.Col>
+      {loading && <FadeSpinner />}
     </Grid.Row>
   );
 };
@@ -52,8 +75,10 @@ PriceFieldComponent.defaultProps = {
 
 /** @type {Object} Tipos das props, ajuda no controle das entradas de dados */
 PriceFieldComponent.propTypes = {
+  id: PropTypes.string.isRequired,
   price: PropTypes.string,
   discount: PropTypes.string,
+  changePrice: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 

@@ -4,14 +4,22 @@ import PropTypes from 'prop-types';
 import {
   Button,
   ButtonGroup,
+  FadeSpinner,
   Icon,
   Input,
   Label,
 } from 'common/ui-elements';
 import { Grid } from 'common/ui-layout';
 
-const QuantityFieldComponent = ({ value, onClose }) => {
+const QuantityFieldComponent = (props) => {
+  const {
+    changeQuantity,
+    id,
+    value,
+    onClose,
+  } = props;
   const [fieldValue, setFieldValue] = useState(value);
+  const [loading, setLoading] = useState(false);
 
   return (
     <Grid.Row>
@@ -20,6 +28,7 @@ const QuantityFieldComponent = ({ value, onClose }) => {
           label={<Label>Quantidade</Label>}
           value={fieldValue}
           onChange={e => setFieldValue(e.target.value)}
+          type="number"
         />
       </Grid.Col>
       <Grid.Col sm={3}>
@@ -27,11 +36,21 @@ const QuantityFieldComponent = ({ value, onClose }) => {
           <Button color="danger" onClick={onClose}>
             <Icon name="fa fa-times" />
           </Button>
-          <Button color="success" onClick={onClose}>
+          <Button
+            color="success"
+            onClick={() => {
+              setLoading(true);
+              changeQuantity(
+                { id, name: fieldValue },
+                onClose,
+              );
+            }}
+          >
             <Icon name="fa fa-check" />
           </Button>
         </ButtonGroup>
       </Grid.Col>
+      {loading && <FadeSpinner />}
     </Grid.Row>
   );
 };
@@ -43,7 +62,9 @@ QuantityFieldComponent.defaultProps = {
 
 /** @type {Object} Tipos das props, ajuda no controle das entradas de dados */
 QuantityFieldComponent.propTypes = {
+  id: PropTypes.string.isRequired,
   value: PropTypes.string,
+  changeQuantity: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
