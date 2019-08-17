@@ -41,7 +41,7 @@ const QuantityFieldComponent = (props) => {
             onClick={() => {
               setLoading(true);
               changeQuantity(
-                { id, name: fieldValue },
+                { id, quantity: fieldValue },
                 onClose,
               );
             }}
