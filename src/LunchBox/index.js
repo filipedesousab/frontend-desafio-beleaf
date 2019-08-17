@@ -1,1 +1,1 @@
-export { default } from './LunchBoxComponent';
+export { default } from './LunchBoxContainer';

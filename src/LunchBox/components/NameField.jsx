@@ -6,6 +6,7 @@ import {
   ButtonGroup,
   Icon,
   Input,
+  Label,
 } from 'common/ui-elements';
 import { Grid } from 'common/ui-layout';
 
@@ -14,14 +15,15 @@ const NameFieldComponent = ({ value, onClose }) => {
 
   return (
     <Grid.Row>
-      <Grid.Col md={3} style={{ paddingRight: '0px' }}>
+      <Grid.Col sm={3} style={{ paddingRight: '0px' }}>
         <Input
+          label={<Label>Nome</Label>}
           value={fieldValue}
           onChange={e => setFieldValue(e.target.value)}
         />
       </Grid.Col>
-      <Grid.Col md={3}>
-        <ButtonGroup style={{ marginTop: '20px' }}>
+      <Grid.Col sm={3}>
+        <ButtonGroup style={{ marginTop: '25px' }}>
           <Button color="danger" onClick={onClose}>
             <Icon name="fa fa-times" />
           </Button>

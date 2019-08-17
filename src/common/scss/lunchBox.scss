@@ -20,6 +20,12 @@
     font-size: 20px;
   }
 
+  .description {
+    textarea {
+      min-height: 200px;
+    }
+  }
+
   .edit {
     display: inline-block;
     cursor: pointer;

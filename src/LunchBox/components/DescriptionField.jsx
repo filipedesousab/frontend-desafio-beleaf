@@ -14,13 +14,15 @@ const DescriptionFieldComponent = ({ value, onClose }) => {
 
   return (
     <Grid.Row>
-      <Grid.Col md={2} style={{ paddingRight: '0px' }}>
+      <Grid.Col sm={9} style={{ paddingRight: '0px' }}>
         <TextArea
           value={fieldValue}
           onChange={e => setFieldValue(e.target.value)}
+          className="description"
+          blockInput
         />
       </Grid.Col>
-      <Grid.Col md={3}>
+      <Grid.Col sm={3}>
         <ButtonGroup style={{ marginTop: '25px' }}>
           <Button color="danger" onClick={onClose}>
             <Icon name="fa fa-times" />

@@ -16,21 +16,21 @@ const PriceFieldComponent = ({ price, discount, onClose }) => {
 
   return (
     <Grid.Row>
-      <Grid.Col md={2} style={{ paddingRight: '0px' }}>
+      <Grid.Col sm={2} style={{ paddingRight: '0px' }}>
         <Input
           label={<Label>Preço</Label>}
           value={fieldPrice}
           onChange={e => setFieldPrice(e.target.value)}
         />
       </Grid.Col>
-      <Grid.Col md={2} style={{ paddingRight: '0px' }}>
+      <Grid.Col sm={2} style={{ paddingRight: '0px' }}>
         <Input
           label={<Label>Desconto (%)</Label>}
           value={fieldDiscount}
           onChange={e => setFieldDiscount(e.target.value)}
         />
       </Grid.Col>
-      <Grid.Col md={3}>
+      <Grid.Col sm={3}>
         <ButtonGroup style={{ marginTop: '25px' }}>
           <Button color="danger" onClick={onClose}>
             <Icon name="fa fa-times" />
