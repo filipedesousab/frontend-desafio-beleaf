@@ -1,5 +1,7 @@
 import React from 'react';
 
+import NavMenu from './containers/NavMenu';
+
 /** [Navbar, UIL001] Navbar da aplicação */
 const NavbarComponent = () => (
   <header className="main-header">
@@ -16,6 +18,7 @@ const NavbarComponent = () => (
     </a>
     <nav className="navbar navbar-static-top">
       <a href="#" className="sidebar-toggle" data-toggle="push-menu" />
+      <NavMenu />
     </nav>
   </header>
 );
