@@ -14,6 +14,7 @@ class NavMenuComponent extends Component {
 
     this.state = {
       open: '',
+      name: '',
       username: '',
       password: '',
       loading: false,
@@ -46,20 +47,45 @@ class NavMenuComponent extends Component {
             type="password"
             onChange={e => this.setState({ password: e.target.value })}
           />
+          <p>E o nome completo se for se registrar</p>
+          <Input
+            label={<Label>Nome completo</Label>}
+            onChange={e => this.setState({ name: e.target.value })}
+          />
         </li>
-      )
+      );
     }
+
+    return null;
   }
 
   renderFooter() {
-    const { user, login, logout } = this.props;
-    const { username, password } = this.state;
+    const { user, login, logout, register } = this.props;
+    const { name, username, password } = this.state;
 
     return (
       <li className="user-footer">
+        {!user.id && (
+          <div className="pull-left">
+            <Button
+              color="primary"
+              onClick={() => {
+                this.setState({ loading: true });
+
+                register(
+                  { name, username, password },
+                  () => this.setState({ loading: false }),
+                );
+              }}
+            >
+              <Label>Registrar</Label>
+            </Button>
+          </div>
+        )}
         <div className="pull-right">
           {user.id ? (
             <Button
+              color="danger"
               onClick={() => {
                 this.setState({ loading: true });
 
@@ -70,6 +96,7 @@ class NavMenuComponent extends Component {
             </Button>
           ) : (
             <Button
+              color="success"
               onClick={() => {
                 this.setState({ loading: true });
 
@@ -99,7 +126,7 @@ class NavMenuComponent extends Component {
             onClick={() => this.setState({ open: 'open' })}
           >
             <a href="#" className="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-              <span className="hidden-xs">
+              <span>
                 <font style={{ verticalAlign: 'inherit' }}>
                   <font style={{ verticalAlign: 'inherit' }}>
                     {user.id ? user.name : 'Login'}
@@ -133,6 +160,7 @@ NavMenuComponent.propTypes = {
   user: PropTypes.object.isRequired,
   login: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
 };
 
 export default NavMenuComponent;

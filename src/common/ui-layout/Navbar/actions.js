@@ -44,3 +44,30 @@ export const logout = (callback = () => {}) => (dispatch) => {
     },
   });
 };
+
+export const register = ({ name, username, password }, callback = () => {}) => (dispatch) => {
+  const { boundAddAlertPopup } = bindActionCreators( // Liga a Action Creator ao dispach
+    { boundAddAlertPopup: addAlertPopup }, // Action Creator do AlertPopup
+    dispatch, // Função para dispachar actions
+  );
+
+  // Simula uma requisição AJAX
+  axios.post('http://localhost:8080/insert', { name, username, password })
+    .then((res) => { // Caso tenha sucesso
+      callback();
+
+      dispatch({ // Dispacha a action
+        type: SET_USER_DATA,
+        payload: { ...res.data },
+      });
+    })
+    .catch(() => { // Caso tenha erro
+      callback();
+
+      boundAddAlertPopup({ // Dispara um AlertPopup de erro
+        title: 'Falha na operação',
+        body: 'Houve alguma falha ao tentar registrar usuário. Tente novamente.',
+        color: 'danger',
+      });
+    });
+};

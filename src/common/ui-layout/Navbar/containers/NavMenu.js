@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { login, logout } from '../actions';
+import { login, logout, register } from '../actions';
 import NavMenuComponent from '../components/NavMenu';
 
 /**
@@ -20,6 +20,6 @@ const mapStateToProps = state => ({
  * @param {function} dispatch Dispacha uma action. A única maneira de atualizar o estado do redux
  * @return  {object}          Único objeto com as Action Creators
  */
-const mapDispatchToProps = dispatch => bindActionCreators({ login, logout }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ login, logout, register }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavMenuComponent);
