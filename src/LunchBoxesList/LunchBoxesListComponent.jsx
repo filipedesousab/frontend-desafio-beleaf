@@ -48,7 +48,7 @@ class LunchBoxesComponent extends Component {
             <Grid.Col sm={3} key={item.id}>
               <a href={`#/lunchBox/${item.id}`}>
                 <div className="lunchbox">
-                  <img src={imageNoPhoto} alt="" />
+                  <img src={item.image || imageNoPhoto} alt="" />
                   <p className="name">{item.name}</p>
                   {discount > 0 ? priceWithDiscount() : priceWithoutDiscount()}
                 </div>
