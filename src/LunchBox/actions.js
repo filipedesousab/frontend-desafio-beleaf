@@ -1,4 +1,5 @@
 import { bindActionCreators } from 'redux';
+import axios from 'axios';
 
 import { addAlertPopup } from 'common/ui-layout/Alerts';
 import { convertURLBlobToBase64 } from 'common/utils';
@@ -26,30 +27,18 @@ export const getLunchBox = (id, callback = () => {}) => (dispatch, getState) => 
       payload: getState().lunchBox.list[id],
     });
   } else {
-    // Simula uma requisição AJAX
-    new Promise((resolve, reject) => setTimeout(() => resolve(), 2000))
-      .then(() => { // Caso tenha sucesso
-        const lunchBox = {
-          id: '1',
-          name: 'Escalopes do Futuro',
-          price: '34.90',
-          discount: '10',
-          quantity: '10',
-          image: '',
-          description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
-          ingredients: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.',
-        };
-
+    axios.get(`http://localhost:8080/lunchbox/${id}`)
+      .then((res) => { // Caso tenha sucesso
         callback();
 
         dispatch({ // Dispacha a action
           type: ADD_LUNCH_BOX,
-          payload: lunchBox,
+          payload: res.data,
         });
 
         dispatch({ // Dispacha a action
           type: SELECT_LUNCH_BOX,
-          payload: lunchBox,
+          payload: res.data,
         });
       })
       .catch(() => { // Caso tenha erro
@@ -70,8 +59,7 @@ export const changeName = ({ id, name }, callback = () => {}) => (dispatch, getS
     dispatch, // Função para dispachar actions
   );
 
-  // Simula uma requisição AJAX
-  new Promise((resolve, reject) => setTimeout(() => resolve(), 2000))
+  axios.put('http://localhost:8080/api/lunchbox', { id, name })
     .then(() => { // Caso tenha sucesso
       callback();
 
@@ -105,8 +93,7 @@ export const changePrice = (
     dispatch, // Função para dispachar actions
   );
 
-  // Simula uma requisição AJAX
-  new Promise((resolve, reject) => setTimeout(() => resolve(), 2000))
+  axios.put('http://localhost:8080/api/lunchbox', { id, price, discount })
     .then(() => { // Caso tenha sucesso
       callback();
 
@@ -137,8 +124,7 @@ export const changeQuantity = ({ id, quantity }, callback = () => {}) => (dispat
     dispatch, // Função para dispachar actions
   );
 
-  // Simula uma requisição AJAX
-  new Promise((resolve, reject) => setTimeout(() => resolve(), 2000))
+  axios.put('http://localhost:8080/api/lunchbox', { id, quantity })
     .then(() => { // Caso tenha sucesso
       callback();
 
@@ -172,8 +158,7 @@ export const changeDescription = (
     dispatch, // Função para dispachar actions
   );
 
-  // Simula uma requisição AJAX
-  new Promise((resolve, reject) => setTimeout(() => resolve(), 2000))
+  axios.put('http://localhost:8080/api/lunchbox', { id, description })
     .then(() => { // Caso tenha sucesso
       callback();
 
@@ -207,8 +192,7 @@ export const changeIngredients = (
     dispatch, // Função para dispachar actions
   );
 
-  // Simula uma requisição AJAX
-  new Promise((resolve, reject) => setTimeout(() => resolve(), 2000))
+  axios.put('http://localhost:8080/api/lunchbox', { id, ingredients })
     .then(() => { // Caso tenha sucesso
       callback();
 
@@ -243,7 +227,7 @@ export const changeImage = ({ id, img }, callback = () => {}) => (dispatch, getS
     convertURLBlobToBase64(img)
       .then((image) => {
         // Simula uma requisição AJAX
-        new Promise((resolve, reject) => setTimeout(() => resolve(), 2000))
+        axios.put('http://localhost:8080/api/lunchbox', { id, image })
           .then(() => { // Caso tenha sucesso
             callback();
 

@@ -11,10 +11,11 @@ export const login = ({ username, password }, callback = () => {}) => (dispatch)
     dispatch, // Função para dispachar actions
   );
 
-  // Simula uma requisição AJAX
   axios.post('http://localhost:8080/login', { username, password })
     .then((res) => { // Caso tenha sucesso
       callback();
+
+      axios.defaults.headers.common.Authorization = res.data.jwt;
 
       dispatch({ // Dispacha a action
         type: SET_USER_DATA,
@@ -34,6 +35,8 @@ export const login = ({ username, password }, callback = () => {}) => (dispatch)
 
 export const logout = (callback = () => {}) => (dispatch) => {
   callback();
+
+  delete axios.defaults.headers.common.Authorization;
 
   dispatch({ // Dispacha a action
     type: SET_USER_DATA,

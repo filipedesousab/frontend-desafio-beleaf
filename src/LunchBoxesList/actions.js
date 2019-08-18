@@ -1,4 +1,5 @@
 import { bindActionCreators } from 'redux';
+import axios from 'axios';
 
 import { addAlertPopup } from 'common/ui-layout/Alerts';
 
@@ -11,19 +12,13 @@ export const getLunchBoxes = (callback = () => {}) => (dispatch) => {
     dispatch, // Função para dispachar actions
   );
 
-  // Simula uma requisição AJAX
-  new Promise((resolve, reject) => setTimeout(() => resolve(), 2000))
-    .then(() => { // Caso tenha sucesso
+  axios.get('http://localhost:8080/lunchbox')
+    .then((res) => { // Caso tenha sucesso
       callback();
 
       dispatch({ // Dispacha a action
         type: GET_LUNCH_BOXES,
-        payload: [{
-          id: '1',
-          name: 'Escalopes do Futuro',
-          price: '34.90',
-          discount: '10',
-        }],
+        payload: res.data,
       });
     })
     .catch(() => { // Caso tenha erro
