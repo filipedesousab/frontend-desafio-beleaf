@@ -18,6 +18,7 @@ const ImageComponent = (props) => {
     return (
       <Photograph
         noWebcam
+        key={lunchBox.id}
         defaultImage={lunchBox.image || imageNoPhoto}
         onCapture={(img) => {
           setLoadingImage(true);

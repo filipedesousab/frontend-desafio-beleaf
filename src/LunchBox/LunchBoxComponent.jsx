@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 
 import { Box, Content, Grid } from 'common/ui-layout';
 import {
+  Button,
   FadeSpinner,
+  Label,
   Tabs,
   Tab,
 } from 'common/ui-elements';
@@ -21,32 +23,35 @@ class LunchBoxComponent extends Component {
     this.state = {
       selectedTab: 'description',
       loading: false,
-      loadingImage: false,
+      loadingUpdate: false,
     };
   }
 
   componentDidMount() {
     const {
       match: { params: { id } },
-      lunchBox,
       getLunchBox,
     } = this.props;
 
-    if (!lunchBox.id) {
-      this.setState({ loading: true });
-      getLunchBox(
-        id,
-        () => this.setState({ loading: false }),
-      );
-    }
+    this.setState({ loading: true });
+    getLunchBox(
+      id,
+      () => this.setState({ loading: false }),
+    );
   }
 
   render() {
-    const { match: { params: { id } }, lunchBox } = this.props;
+    const {
+      match: { params: { id } },
+      lunchBox,
+      deleteLunchBox,
+      history,
+      user,
+    } = this.props;
     const {
       selectedTab,
       loading,
-      loadingImage,
+      loadingUpdate,
     } = this.state;
 
     return (
@@ -60,9 +65,9 @@ class LunchBoxComponent extends Component {
               <Grid.Col md={3}>
                 <Image
                   id={id}
-                  setLoadingImage={val => this.setState({ loadingImage: val })}
+                  setLoadingImage={val => this.setState({ loadingUpdate: val })}
                 />
-                {loadingImage && <FadeSpinner />}
+                {loadingUpdate && <FadeSpinner />}
               </Grid.Col>
               <Grid.Col md={8}>
                 <div className="lunchbox">
@@ -71,6 +76,23 @@ class LunchBoxComponent extends Component {
                   <Price id={id} />
                   <br />
                   <Quantity id={id} />
+                  <br />
+                  {user.id && (
+                    <Button
+                      color="danger"
+                      onClick={() => {
+                        this.setState({ loadingUpdate: true });
+
+                        deleteLunchBox(
+                          { id },
+                          history,
+                          () => this.setState({ loadingUpdate: false }),
+                        );
+                      }}
+                    >
+                      <Label>Excluir marmita</Label>
+                    </Button>
+                  )}
                 </div>
               </Grid.Col>
             </Grid.Row>
@@ -101,6 +123,7 @@ LunchBoxComponent.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   lunchBox: PropTypes.object.isRequired,
   getLunchBox: PropTypes.func.isRequired,
+  deleteLunchBox: PropTypes.func.isRequired,
 };
 
 export default LunchBoxComponent;

@@ -21,11 +21,14 @@ export const getLunchBox = (id, callback = () => {}) => (dispatch, getState) => 
     dispatch, // Função para dispachar actions
   );
 
+  // Se já hover buscado a marmita, seleciona a que está em memória
   if (getState().lunchBox.list[id]) {
     dispatch({ // Dispacha a action
       type: SELECT_LUNCH_BOX,
       payload: getState().lunchBox.list[id],
     });
+
+    callback();
   } else {
     axios.get(`http://localhost:8080/lunchbox/${id}`)
       .then((res) => { // Caso tenha sucesso
@@ -223,35 +226,60 @@ export const changeImage = ({ id, img }, callback = () => {}) => (dispatch, getS
     dispatch, // Função para dispachar actions
   );
 
+  const sendImage = (image) => {
+    axios.put('http://localhost:8080/api/lunchbox', { id, image: image || 'null' })
+      .then(() => { // Caso tenha sucesso
+        callback();
+
+        dispatch({ // Dispacha a action
+          type: CHANGE_LUNCH_BOX_IMAGE,
+          payload: { id, image },
+        });
+
+        dispatch({ // Dispacha a action
+          type: SELECT_LUNCH_BOX,
+          payload: { ...getState().lunchBox.list[id], image },
+        });
+      })
+      .catch(() => { // Caso tenha erro
+        callback();
+
+        boundAddAlertPopup({ // Dispara um AlertPopup de erro
+          title: 'Falha na operação',
+          body: 'Houve alguma falha ao tentar alterar a imagem da marmita. Tente novamente.',
+          color: 'danger',
+        });
+      });
+  }
   if (img) {
     convertURLBlobToBase64(img)
       .then((image) => {
-        // Simula uma requisição AJAX
-        axios.put('http://localhost:8080/api/lunchbox', { id, image })
-          .then(() => { // Caso tenha sucesso
-            callback();
-
-            dispatch({ // Dispacha a action
-              type: CHANGE_LUNCH_BOX_IMAGE,
-              payload: { id, image },
-            });
-
-            dispatch({ // Dispacha a action
-              type: SELECT_LUNCH_BOX,
-              payload: { ...getState().lunchBox.list[id], image },
-            });
-          })
-          .catch(() => { // Caso tenha erro
-            callback();
-
-            boundAddAlertPopup({ // Dispara um AlertPopup de erro
-              title: 'Falha na operação',
-              body: 'Houve alguma falha ao tentar alterar a imagem da marmita. Tente novamente.',
-              color: 'danger',
-            });
-          });
+        sendImage(image);
       });
   } else {
-    callback();
+    sendImage('');
   }
+};
+
+export const deleteLunchBox = ({ id }, history, callback = () => {}) => (dispatch) => {
+  const { boundAddAlertPopup } = bindActionCreators( // Liga a Action Creator ao dispach
+    { boundAddAlertPopup: addAlertPopup }, // Action Creator do AlertPopup
+    dispatch, // Função para dispachar actions
+  );
+
+  axios.put('http://localhost:8080/api/lunchbox/delete', { id })
+    .then(() => { // Caso tenha sucesso
+      callback();
+
+      history.replace('/');
+    })
+    .catch(() => { // Caso tenha erro
+      callback();
+
+      boundAddAlertPopup({ // Dispara um AlertPopup de erro
+        title: 'Falha na operação',
+        body: 'Houve alguma falha ao tentar excluir marmita. Tente novamente.',
+        color: 'danger',
+      });
+    });
 };

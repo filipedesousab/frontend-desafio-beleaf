@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { getLunchBox, changeImage } from './actions';
+import { getLunchBox, changeImage, deleteLunchBox } from './actions';
 import LunchBoxComponent from './LunchBoxComponent';
 
 /**
@@ -12,6 +12,7 @@ import LunchBoxComponent from './LunchBoxComponent';
  */
 const mapStateToProps = state => ({
   lunchBox: state.lunchBox.selected,
+  user: state.global.user,
 });
 
 /**
@@ -19,6 +20,10 @@ const mapStateToProps = state => ({
  * @param {function} dispatch Dispacha uma action. A única maneira de atualizar o estado do redux
  * @return  {object}          Único objeto com as Action Creators
  */
-const mapDispatchToProps = dispatch => bindActionCreators({ getLunchBox, changeImage }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({
+  getLunchBox,
+  changeImage,
+  deleteLunchBox,
+}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(LunchBoxComponent);
