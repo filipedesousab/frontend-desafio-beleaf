@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { bindActionCreators } from 'redux';
 
 import { addAlertPopup } from 'common/ui-layout/Alerts';
@@ -11,16 +12,13 @@ export const login = ({ username, password }, callback = () => {}) => (dispatch)
   );
 
   // Simula uma requisição AJAX
-  new Promise((resolve, reject) => setTimeout(() => resolve(), 2000))
-    .then(() => { // Caso tenha sucesso
+  axios.post('http://localhost:8080/login', { username, password })
+    .then((res) => { // Caso tenha sucesso
       callback();
 
       dispatch({ // Dispacha a action
         type: SET_USER_DATA,
-        payload: {
-          id: '1',
-          name: 'Filipe Botelho',
-        },
+        payload: { ...res.data },
       });
     })
     .catch(() => { // Caso tenha erro
@@ -35,31 +33,14 @@ export const login = ({ username, password }, callback = () => {}) => (dispatch)
 };
 
 export const logout = (callback = () => {}) => (dispatch) => {
-  const { boundAddAlertPopup } = bindActionCreators( // Liga a Action Creator ao dispach
-    { boundAddAlertPopup: addAlertPopup }, // Action Creator do AlertPopup
-    dispatch, // Função para dispachar actions
-  );
+  callback();
 
-  // Simula uma requisição AJAX
-  new Promise((resolve, reject) => setTimeout(() => resolve(), 2000))
-    .then(() => { // Caso tenha sucesso
-      callback();
-
-      dispatch({ // Dispacha a action
-        type: SET_USER_DATA,
-        payload: {
-          id: '',
-          name: '',
-        },
-      });
-    })
-    .catch(() => { // Caso tenha erro
-      callback();
-
-      boundAddAlertPopup({ // Dispara um AlertPopup de erro
-        title: 'Falha na operação',
-        body: 'Houve alguma falha ao tentar efetuar o logout. Tente novamente.',
-        color: 'danger',
-      });
-    });
+  dispatch({ // Dispacha a action
+    type: SET_USER_DATA,
+    payload: {
+      id: '',
+      name: '',
+      hash: '',
+    },
+  });
 };

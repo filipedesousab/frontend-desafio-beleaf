@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   user: {
     id: '',
     name: '',
+    hash: '',
   },
 };
 
