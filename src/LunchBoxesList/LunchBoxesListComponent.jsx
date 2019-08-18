@@ -10,12 +10,23 @@ class LunchBoxesComponent extends Component {
     super(props);
 
     this.state = { loading: true };
+
+    this.userId = props.user.id;
   }
 
   componentDidMount() {
     const { getLunchBoxes } = this.props;
 
     getLunchBoxes(() => this.setState({ loading: false }));
+  }
+
+  componentWillReceiveProps({ getLunchBoxes, user }) {
+    if (user.id !== this.userId) {
+      this.userId = user.id;
+
+      this.setState({ loading: true });
+      getLunchBoxes(() => this.setState({ loading: false }));
+    }
   }
 
   renderList() {
@@ -80,6 +91,8 @@ class LunchBoxesComponent extends Component {
 LunchBoxesComponent.propTypes = {
   getLunchBoxes: PropTypes.func.isRequired,
   lunchBoxes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  user: PropTypes.object.isRequired,
 };
 
 export default LunchBoxesComponent;

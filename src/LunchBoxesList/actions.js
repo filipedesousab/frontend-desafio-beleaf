@@ -6,13 +6,15 @@ import { addAlertPopup } from 'common/ui-layout/Alerts';
 import { GET_LUNCH_BOXES } from './types';
 
 // eslint-disable-next-line import/prefer-default-export
-export const getLunchBoxes = (callback = () => {}) => (dispatch) => {
+export const getLunchBoxes = (callback = () => {}) => (dispatch, getState) => {
   const { boundAddAlertPopup } = bindActionCreators( // Liga a Action Creator ao dispach
     { boundAddAlertPopup: addAlertPopup }, // Action Creator do AlertPopup
     dispatch, // Função para dispachar actions
   );
 
-  axios.get(`${__HOST__}/lunchbox`)
+  const host = `${__HOST__}${getState().global.user.id ? '/api' : ''}`;
+
+  axios.get(`${host}/lunchbox`)
     .then((res) => { // Caso tenha sucesso
       callback();
 

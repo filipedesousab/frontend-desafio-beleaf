@@ -12,6 +12,7 @@ import LunchBoxesListComponent from './LunchBoxesListComponent';
  */
 const mapStateToProps = state => ({
   lunchBoxes: state.lunchBoxesList.list,
+  user: state.global.user,
 });
 
 /**

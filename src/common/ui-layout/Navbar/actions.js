@@ -71,6 +71,8 @@ export const register = ({ name, username, password }, callback = () => {}) => (
     .then((res) => { // Caso tenha sucesso
       callback();
 
+      axios.defaults.headers.common.Authorization = res.data.jwt;
+
       dispatch({ // Dispacha a action
         type: SET_USER_DATA,
         payload: { ...res.data },
