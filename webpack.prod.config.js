@@ -3,6 +3,8 @@ const path = require('path');
 
 const HtmlPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const PreBuildPlugin = require('pre-build-webpack');
+const fse = require('fs-extra');
 
 module.exports = {
   entry: [
@@ -12,8 +14,9 @@ module.exports = {
   ],
 
   output: {
-    path: path.join(__dirname, 'public'), // Local de saída dos arquivos compilados
-    filename: '[name]-[chunkhash:8].js', // Nome gerado automáticamente com uma hash do conteúdo, após a compilação
+    path: path.join(__dirname, '..', 'backend', 'public'), // Local de saída dos arquivos compilados
+    filename: path.join('js', '[name]-[chunkhash:8].js'), // Nome gerado automáticamente com uma hash do conteúdo, após a compilação
+    publicPath: '../',
   },
 
   resolve: {
@@ -34,7 +37,7 @@ module.exports = {
     }),
 
     new MiniCssExtractPlugin({ // Extai o CSS dos loaders
-      filename: '[name]-[contenthash:8].css',
+      filename: path.join('css', '[name]-[contenthash:8].css'),
     }),
 
     new webpack.ProvidePlugin({ // Deixar o jQuery disponível
@@ -54,6 +57,12 @@ module.exports = {
         removeComments: true,
         removeRedundantAttributes: true,
       },
+    }),
+
+    new PreBuildPlugin(() => { // Executado antes do webpack começar a compilar
+      console.log('-----===== Remover arquivos do public =====-----');
+      fse.remove(path.resolve(__dirname, '..', 'backend', 'public'));
+      console.log('-----===== Concluído remoção dos arquivos do public =====-----');
     }),
   ],
 
