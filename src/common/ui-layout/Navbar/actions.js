@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { addAlertPopup } from 'common/ui-layout/Alerts';
 
 import { SET_USER_DATA } from '../../../types';
+import { updateSidebar } from '../Sidebar/actions';
 
 export const login = ({ username, password }, callback = () => {}) => (dispatch) => {
   const { boundAddAlertPopup } = bindActionCreators( // Liga a Action Creator ao dispach
@@ -21,6 +22,12 @@ export const login = ({ username, password }, callback = () => {}) => (dispatch)
         type: SET_USER_DATA,
         payload: { ...res.data },
       });
+
+      const bind = bindActionCreators(
+        { boundUpdateSidebar: updateSidebar },
+        dispatch,
+      );
+      bind.boundUpdateSidebar();
     })
     .catch(() => { // Caso tenha erro
       callback();
@@ -46,6 +53,12 @@ export const logout = (callback = () => {}) => (dispatch) => {
       hash: '',
     },
   });
+
+  const bind = bindActionCreators(
+    { boundUpdateSidebar: updateSidebar },
+    dispatch,
+  );
+  bind.boundUpdateSidebar();
 };
 
 export const register = ({ name, username, password }, callback = () => {}) => (dispatch) => {

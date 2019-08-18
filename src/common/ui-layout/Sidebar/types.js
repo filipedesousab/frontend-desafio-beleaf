@@ -1,0 +1,1 @@
+export const UPDATE_SIDEBAR = 'UPDATE_SIDEBAR';

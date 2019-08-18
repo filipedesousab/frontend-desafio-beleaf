@@ -1,3 +1,5 @@
+import { UPDATE_SIDEBAR } from './types';
+
 const INITIAL_STATE = {
   menu: [
     {
@@ -10,6 +12,8 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case UPDATE_SIDEBAR:
+      return { ...state, menu: [...action.payload] };
     default:
       return state;
   }
