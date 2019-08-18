@@ -38,6 +38,10 @@ module.exports = {
   plugins: [
     new DashboardPlugin(), // Fornece informaçõe do progresso ao webpack-dashboard
 
+    new webpack.DefinePlugin({ // Definir valores globais a serem substituídos na compilação
+      __HOST__: '"http://localhost:8080"',
+    }),
+
     new webpack.ProvidePlugin({ // Deixar o jQuery disponível
       $: 'jquery',
       jQuery: 'jquery',

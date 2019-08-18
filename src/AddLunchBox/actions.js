@@ -10,7 +10,7 @@ export const insertLunchBox = (data, history, callback = () => {}) => (dispatch)
     dispatch, // Função para dispachar actions
   );
 
-  axios.post('http://localhost:8080/api/lunchbox', data)
+  axios.post(`${__HOST__}/api/lunchbox`, data)
     .then((res) => { // Caso tenha sucesso
       callback();
 

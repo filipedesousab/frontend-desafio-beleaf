@@ -30,7 +30,7 @@ export const getLunchBox = (id, callback = () => {}) => (dispatch, getState) => 
 
     callback();
   } else {
-    axios.get(`http://localhost:8080/lunchbox/${id}`)
+    axios.get(`${__HOST__}/lunchbox/${id}`)
       .then((res) => { // Caso tenha sucesso
         callback();
 
@@ -62,7 +62,7 @@ export const changeName = ({ id, name }, callback = () => {}) => (dispatch, getS
     dispatch, // Função para dispachar actions
   );
 
-  axios.put('http://localhost:8080/api/lunchbox', { id, name })
+  axios.put(`${__HOST__}/api/lunchbox`, { id, name })
     .then(() => { // Caso tenha sucesso
       callback();
 
@@ -96,7 +96,7 @@ export const changePrice = (
     dispatch, // Função para dispachar actions
   );
 
-  axios.put('http://localhost:8080/api/lunchbox', { id, price, discount })
+  axios.put(`${__HOST__}/api/lunchbox`, { id, price, discount })
     .then(() => { // Caso tenha sucesso
       callback();
 
@@ -127,7 +127,7 @@ export const changeQuantity = ({ id, quantity }, callback = () => {}) => (dispat
     dispatch, // Função para dispachar actions
   );
 
-  axios.put('http://localhost:8080/api/lunchbox', { id, quantity })
+  axios.put(`${__HOST__}/api/lunchbox`, { id, quantity })
     .then(() => { // Caso tenha sucesso
       callback();
 
@@ -161,7 +161,7 @@ export const changeDescription = (
     dispatch, // Função para dispachar actions
   );
 
-  axios.put('http://localhost:8080/api/lunchbox', { id, description })
+  axios.put(`${__HOST__}/api/lunchbox`, { id, description })
     .then(() => { // Caso tenha sucesso
       callback();
 
@@ -195,7 +195,7 @@ export const changeIngredients = (
     dispatch, // Função para dispachar actions
   );
 
-  axios.put('http://localhost:8080/api/lunchbox', { id, ingredients })
+  axios.put(`${__HOST__}/api/lunchbox`, { id, ingredients })
     .then(() => { // Caso tenha sucesso
       callback();
 
@@ -227,7 +227,7 @@ export const changeImage = ({ id, img }, callback = () => {}) => (dispatch, getS
   );
 
   const sendImage = (image) => {
-    axios.put('http://localhost:8080/api/lunchbox', { id, image: image || 'null' })
+    axios.put(`${__HOST__}/api/lunchbox`, { id, image: image || 'null' })
       .then(() => { // Caso tenha sucesso
         callback();
 
@@ -267,7 +267,7 @@ export const deleteLunchBox = ({ id }, history, callback = () => {}) => (dispatc
     dispatch, // Função para dispachar actions
   );
 
-  axios.put('http://localhost:8080/api/lunchbox/delete', { id })
+  axios.put(`${__HOST__}/api/lunchbox/delete`, { id })
     .then(() => { // Caso tenha sucesso
       callback();
 

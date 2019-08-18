@@ -29,6 +29,10 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.DefinePlugin({ // Definir valores globais a serem substituídos na compilação
+      __HOST__: '""',
+    }),
+
     new MiniCssExtractPlugin({ // Extai o CSS dos loaders
       filename: '[name]-[contenthash:8].css',
     }),

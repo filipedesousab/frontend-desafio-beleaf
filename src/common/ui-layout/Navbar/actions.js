@@ -12,7 +12,7 @@ export const login = ({ username, password }, callback = () => {}) => (dispatch)
     dispatch, // Função para dispachar actions
   );
 
-  axios.post('http://localhost:8080/login', { username, password })
+  axios.post(`${__HOST__}/login`, { username, password })
     .then((res) => { // Caso tenha sucesso
       callback();
 
@@ -67,8 +67,7 @@ export const register = ({ name, username, password }, callback = () => {}) => (
     dispatch, // Função para dispachar actions
   );
 
-  // Simula uma requisição AJAX
-  axios.post('http://localhost:8080/insert', { name, username, password })
+  axios.post(`${__HOST__}/insert`, { name, username, password })
     .then((res) => { // Caso tenha sucesso
       callback();
 

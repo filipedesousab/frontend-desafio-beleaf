@@ -12,7 +12,7 @@ export const getLunchBoxes = (callback = () => {}) => (dispatch) => {
     dispatch, // Função para dispachar actions
   );
 
-  axios.get('http://localhost:8080/lunchbox')
+  axios.get(`${__HOST__}/lunchbox`)
     .then((res) => { // Caso tenha sucesso
       callback();
 
