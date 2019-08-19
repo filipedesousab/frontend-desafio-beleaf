@@ -19,6 +19,7 @@ const QuantityFieldComponent = (props) => {
     onClose,
   } = props;
   const [fieldValue, setFieldValue] = useState(value);
+  const [fieldError, setFieldError] = useState(false);
   const [loading, setLoading] = useState(false);
 
   return (
@@ -29,6 +30,8 @@ const QuantityFieldComponent = (props) => {
           value={fieldValue}
           onChange={e => setFieldValue(e.target.value)}
           type="number"
+          state={fieldError ? 'error' : null}
+          helpBlock={fieldError ? 'Quantidade é obrigatório' : null}
         />
       </Grid.Col>
       <Grid.Col sm={3}>
@@ -40,10 +43,15 @@ const QuantityFieldComponent = (props) => {
             color="success"
             onClick={() => {
               setLoading(true);
-              changeQuantity(
-                { id, quantity: fieldValue },
-                onClose,
-              );
+              if (fieldValue === '') {
+                setFieldError(true);
+                setLoading(false);
+              } else {
+                changeQuantity(
+                  { id, quantity: fieldValue },
+                  onClose,
+                );
+              }
             }}
           >
             <Icon name="fa fa-check" />

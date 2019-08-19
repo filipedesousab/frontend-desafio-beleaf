@@ -20,6 +20,7 @@ const DescriptionFieldComponent = (props) => {
     onClose,
   } = props;
   const [fieldValue, setFieldValue] = useState(value);
+  const [fieldError, setFieldError] = useState(false);
   const [loading, setLoading] = useState(false);
 
   return (
@@ -30,6 +31,8 @@ const DescriptionFieldComponent = (props) => {
           onChange={e => setFieldValue(e.target.value)}
           className="description"
           blockInput
+          state={fieldError ? 'error' : null}
+          helpBlock={fieldError ? 'O campo é obrigatório' : null}
         />
       </Grid.Col>
       <Grid.Col sm={3}>
@@ -41,7 +44,10 @@ const DescriptionFieldComponent = (props) => {
             color="success"
             onClick={() => {
               setLoading(true);
-              if (isDescription) {
+              if (fieldValue === '') {
+                setFieldError(true);
+                setLoading(false);
+              } else if (isDescription) {
                 changeDescription(
                   { id, description: fieldValue },
                   onClose,

@@ -17,6 +17,9 @@ class NavMenuComponent extends Component {
       name: '',
       username: '',
       password: '',
+      errorName: false,
+      errorUsername: false,
+      errorPassword: false,
       loading: false,
     };
   }
@@ -34,23 +37,37 @@ class NavMenuComponent extends Component {
 
   renderBody() {
     const { user } = this.props;
+    const {
+      name,
+      username,
+      password,
+      errorName,
+      errorUsername,
+      errorPassword,
+    } = this.state;
 
     if (!user.id) {
       return (
         <li className="user-body">
           <Input
             label={<Label>Usuário</Label>}
+            value={username}
             onChange={e => this.setState({ username: e.target.value })}
+            state={errorUsername ? 'error' : null}
           />
           <Input
             label={<Label>Senha</Label>}
             type="password"
+            value={password}
             onChange={e => this.setState({ password: e.target.value })}
+            state={errorPassword ? 'error' : null}
           />
           <p>E o nome completo se for se registrar</p>
           <Input
             label={<Label>Nome completo</Label>}
+            value={name}
             onChange={e => this.setState({ name: e.target.value })}
+            state={errorName ? 'error' : null}
           />
         </li>
       );
@@ -72,10 +89,19 @@ class NavMenuComponent extends Component {
               onClick={() => {
                 this.setState({ loading: true });
 
-                register(
-                  { name, username, password },
-                  () => this.setState({ loading: false }),
-                );
+                if (name === '' || username === '' || password === '') {
+                  this.setState({
+                    errorName: name === '',
+                    errorUsername: username === '',
+                    errorPassword: password === '',
+                  });
+                  this.setState({ loading: false });
+                } else {
+                  register(
+                    { name, username, password },
+                    () => this.setState({ loading: false }),
+                  );
+                }
               }}
             >
               <Label>Registrar</Label>
@@ -100,10 +126,19 @@ class NavMenuComponent extends Component {
               onClick={() => {
                 this.setState({ loading: true });
 
-                login(
-                  { username, password },
-                  () => this.setState({ loading: false }),
-                );
+                if (username === '' || password === '') {
+                  this.setState({
+                    errorName: false,
+                    errorUsername: username === '',
+                    errorPassword: password === '',
+                  });
+                  this.setState({ loading: false });
+                } else {
+                  login(
+                    { username, password },
+                    () => this.setState({ loading: false }),
+                  );
+                }
               }}
             >
               <Label>Entrar</Label>

@@ -19,6 +19,7 @@ const NameFieldComponent = (props) => {
     value,
   } = props;
   const [fieldValue, setFieldValue] = useState(value);
+  const [fieldError, setFieldError] = useState(false);
   const [loading, setLoading] = useState(false);
 
   return (
@@ -28,6 +29,8 @@ const NameFieldComponent = (props) => {
           label={<Label>Nome</Label>}
           value={fieldValue}
           onChange={e => setFieldValue(e.target.value)}
+          state={fieldError ? 'error' : null}
+          helpBlock={fieldError ? 'Nome é obrigatório' : null}
         />
       </Grid.Col>
       <Grid.Col sm={3}>
@@ -39,10 +42,15 @@ const NameFieldComponent = (props) => {
             color="success"
             onClick={() => {
               setLoading(true);
-              changeName(
-                { id, name: fieldValue },
-                onClose,
-              );
+              if (fieldValue === '') {
+                setFieldError(true);
+                setLoading(false);
+              } else {
+                changeName(
+                  { id, name: fieldValue },
+                  onClose,
+                );
+              }
             }}
           >
             <Icon name="fa fa-check" />

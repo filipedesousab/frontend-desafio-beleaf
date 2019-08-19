@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import MaskedInput from 'react-text-mask';
 
 import {
   Button,
@@ -10,6 +11,7 @@ import {
   Label,
 } from 'common/ui-elements';
 import { Grid } from 'common/ui-layout';
+import { masks } from 'common/utils';
 
 const PriceFieldComponent = (props) => {
   const {
@@ -21,15 +23,22 @@ const PriceFieldComponent = (props) => {
   } = props;
   const [fieldPrice, setFieldPrice] = useState(price);
   const [fieldDiscount, setFieldDiscount] = useState(discount);
+  const [fieldPriceError, setFieldPriceError] = useState(false);
   const [loading, setLoading] = useState(false);
 
   return (
     <Grid.Row>
       <Grid.Col sm={2} style={{ paddingRight: '0px' }}>
-        <Input
+        <MaskedInput
+          keepCharPositions
           label={<Label>Preço</Label>}
           value={fieldPrice}
           onChange={e => setFieldPrice(e.target.value)}
+          state={fieldPriceError ? 'error' : null}
+          helpBlock={fieldPriceError ? 'Preço é obrigatório' : null}
+          mask={masks.currency()}
+          guide={false}
+          render={(ref, maskProps) => <Input _ref={ref} {...maskProps} />}
         />
       </Grid.Col>
       <Grid.Col sm={2} style={{ paddingRight: '0px' }}>
@@ -37,6 +46,7 @@ const PriceFieldComponent = (props) => {
           label={<Label>Desconto (%)</Label>}
           value={fieldDiscount}
           onChange={e => setFieldDiscount(e.target.value)}
+          type="number"
         />
       </Grid.Col>
       <Grid.Col sm={3}>
@@ -48,14 +58,19 @@ const PriceFieldComponent = (props) => {
             color="success"
             onClick={() => {
               setLoading(true);
-              changePrice(
-                {
-                  id,
-                  price: fieldPrice.replace(',', '.'),
-                  discount: fieldDiscount.replace(',', '.'),
-                },
-                onClose,
-              );
+              if (fieldPrice === '') {
+                setFieldPriceError(fieldPrice === '');
+                setLoading(false);
+              } else {
+                changePrice(
+                  {
+                    id,
+                    price: fieldPrice.replace('R$ ', '').replace(',', '.'),
+                    discount: fieldDiscount === '' ? '0' : fieldDiscount.replace(',', '.'),
+                  },
+                  onClose,
+                );
+              }
             }}
           >
             <Icon name="fa fa-check" />

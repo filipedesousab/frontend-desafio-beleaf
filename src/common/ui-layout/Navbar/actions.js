@@ -29,14 +29,22 @@ export const login = ({ username, password }, callback = () => {}) => (dispatch)
       );
       bind.boundUpdateSidebar();
     })
-    .catch(() => { // Caso tenha erro
+    .catch((err) => { // Caso tenha erro
       callback();
 
-      boundAddAlertPopup({ // Dispara um AlertPopup de erro
-        title: 'Falha na operação',
-        body: 'Houve alguma falha ao tentar efetuar o login. Tente novamente.',
-        color: 'danger',
-      });
+      if (err.response.status === 401) { // Se o usuário ou a senha for inválida
+        boundAddAlertPopup({ // Dispara um AlertPopup de erro
+          title: 'Usuário ou senha inválida',
+          body: 'Verifique se o usuário e a senha e tente novamente.',
+          color: 'danger',
+        });
+      } else {
+        boundAddAlertPopup({ // Dispara um AlertPopup de erro
+          title: 'Falha na operação',
+          body: 'Houve alguma falha ao tentar efetuar o login. Tente novamente.',
+          color: 'danger',
+        });
+      }
     });
 };
 
@@ -78,13 +86,21 @@ export const register = ({ name, username, password }, callback = () => {}) => (
         payload: { ...res.data },
       });
     })
-    .catch(() => { // Caso tenha erro
+    .catch((err) => { // Caso tenha erro
       callback();
 
-      boundAddAlertPopup({ // Dispara um AlertPopup de erro
-        title: 'Falha na operação',
-        body: 'Houve alguma falha ao tentar registrar usuário. Tente novamente.',
-        color: 'danger',
-      });
+      if (err.response.status === 401) { // Se o username for duplicado
+        boundAddAlertPopup({ // Dispara um AlertPopup de erro
+          title: 'Nome de usuário já existe!',
+          body: 'Tente outro nome de usuário.',
+          color: 'danger',
+        });
+      } else {
+        boundAddAlertPopup({ // Dispara um AlertPopup de erro
+          title: 'Falha na operação',
+          body: 'Houve alguma falha ao tentar registrar usuário. Tente novamente.',
+          color: 'danger',
+        });
+      }
     });
 };
