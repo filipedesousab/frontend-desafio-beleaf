@@ -61,7 +61,7 @@
     "formik": "^1.5.8",
     "history": "^4.7.2",
     "ionicons": "^3.0.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "mobile-detect": "^1.4.3",
     "prop-types": "^15.7.2",
     "random-hash": "^4.0.1",
